@@ -1,7 +1,6 @@
 const express = require('express');
 // Import and require mysql2
-const mysql = require('mysql2');
-require ("dotenv").config()
+const routes = require ("./routes")
 
 const PORT = process.env.PORT || 3002;
 const app = express();
@@ -10,19 +9,9 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // MySQL password
-    password: '',
-    database: 'classlist_db'
-  },
-  console.log(`Connected to the classlist_db database.`)
-);
+app.use(routes);
 
+// Connect to database
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
